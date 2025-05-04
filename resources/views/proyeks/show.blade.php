@@ -1,4 +1,14 @@
+
 @extends('layouts.app')
+
+@section('title', 'Detail Proyek')
+
+@section('content')
+<div class="page-inner">
+    <div class="card">
+        <div class="card-header"><div class="card-title">Detail Proyek</div></div>
+        <div class="card-body">
+            @extends('layouts.app')
 
 @section('content')
 <div class="container">
@@ -91,6 +101,11 @@
                 </div>
                 <button type="submit" class="btn btn-primary">Tambah</button>
             </form>
+        </div>
+    </div>
+</div>
+@endsection
+
         </div>
     </div>
 </div>

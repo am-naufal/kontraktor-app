@@ -7,47 +7,111 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <!-- AdminLTE CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
+    <!-- Fonts and icons -->
+    <script src="{{ asset('build/assets/js/plugin/webfont/webfont.min.js') }}"></script>
+    <script>
+        WebFont.load({
+            google: {
+                families: ["Public Sans:300,400,500,600,700"]
+            },
+            custom: {
+                families: [
+                    "Font Awesome 5 Solid",
+                    "Font Awesome 5 Regular",
+                    "Font Awesome 5 Brands",
+                    "simple-line-icons",
+                ],
+                urls: ["{{ asset('build/assets/css/fonts.min.css') }}"],
+            },
+            active: function() {
+                sessionStorage.fonts = true;
+            },
+        });
+    </script>
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="{{ asset('build/assets/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/assets/css/plugins.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/assets/css/kaiadmin.min.css') }}">
+
 </head>
 
-<body class="hold-transition sidebar-mini layout-fixed">
+<body>
     <div class="wrapper">
-
-        <!-- Navbar -->
-        @include('layouts.navbar')
-
         <!-- Sidebar -->
         @include('layouts.sidebar')
 
-        <!-- Content Wrapper -->
-        <div class="content-wrapper pt-4 px-3">
-            @if (session('success'))
-                <div class="alert alert-success alert-dismissible fade show mx-3 my-2" role="alert">
-                    {{ session('success') }}
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                </div>
-            @endif
+        <div class="main-panel">
+            <!-- Navbar -->
+            @include('layouts.navbar')
 
-            @if (session('error'))
-                <div class="alert alert-danger alert-dismissible fade show mx-3 my-2" role="alert">
-                    {{ session('error') }}
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                </div>
-            @endif
+            <!-- Content -->
+            <div class="container pt-4">
+                @if (session('success'))
+                    <div class="alert alert-success">{{ session('success') }}</div>
+                @endif
+                @if (session('error'))
+                    <div class="alert alert-danger">{{ session('error') }}</div>
+                @endif
 
-            @yield('content')
+                @yield('content')
+            </div>
+
+            <footer class="footer">
+                <div class="container-fluid d-flex justify-content-between">
+                    <div>
+                        &copy; {{ date('Y') }} - Kaiadmin Theme by <a href="https://themewagon.com/"
+                            target="_blank">ThemeWagon</a>
+                    </div>
+                    <div>
+                        Laravel integration by YourTeam
+                    </div>
+                </div>
+            </footer>
+
         </div>
-
     </div>
 
-    <!-- AdminLTE JS -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-@stack('scripts')
+    <!-- JS Scripts -->
+    <script src="{{ asset('build/assets/js/core/jquery-3.7.1.min.js') }}"></script>
+    <script src="{{ asset('build/assets/js/core/popper.min.js') }}"></script>
+    <script src="{{ asset('build/assets/js/core/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('build/assets/js/plugin/chart.js/chart.min.js') }}"></script>
+    <script src="{{ asset('build/assets/js/kaiadmin.min.js') }}"></script>
+
+    <!-- Sidebar Toggle Script -->
+    <script>
+        $(document).ready(function() {
+            // Toggle sidebar
+            $('.toggle-sidebar').click(function() {
+                $('.sidebar').toggleClass('active');
+                $('.main-panel').toggleClass('active');
+            });
+
+            // Toggle sidenav
+            $('.sidenav-toggler').click(function() {
+                $('.sidebar').toggleClass('sidenav-toggled');
+                $('.main-panel').toggleClass('sidenav-toggled');
+            });
+
+            // Toggle topbar
+            $('.topbar-toggler').click(function() {
+                $('.navbar-header').toggleClass('active');
+            });
+
+            // Close sidebar when clicking outside
+            $(document).click(function(e) {
+                if (!$(e.target).closest('.sidebar, .toggle-sidebar, .sidenav-toggler').length) {
+                    if ($('.sidebar').hasClass('active')) {
+                        $('.sidebar').removeClass('active');
+                        $('.main-panel').removeClass('active');
+                    }
+                }
+            });
+        });
+    </script>
+
+    @stack('scripts')
 </body>
 
 </html>

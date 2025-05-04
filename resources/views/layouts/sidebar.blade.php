@@ -1,62 +1,69 @@
-<aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Brand Logo -->
-    <a href="/" class="brand-link">
-        <span class="brand-text font-weight-light">Kontraktor App</span>
-    </a>
-
-    <!-- Sidebar -->
-    <div class="sidebar">
-        <!-- Sidebar Menu -->
-        <nav class="mt-2">
-            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview">
-                <li class="nav-item">
-                    <a href="{{ url('/dashboard') }}" class="nav-link">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
+<div class="sidebar" data-background-color="dark">
+    <div class="sidebar-logo">
+        <div class="logo-header" data-background-color="dark">
+            <a href="{{ route('dashboard') }}" class="logo">
+                <img src="{{ asset('build/assets/img/kaiadmin/logo_light.svg') }}" alt="Logo" height="20">
+            </a>
+            <div class="nav-toggle">
+                <button class="btn btn-toggle toggle-sidebar">
+                    <i class="gg-menu-right"></i>
+                </button>
+                <button class="btn btn-toggle sidenav-toggler">
+                    <i class="gg-menu-left"></i>
+                </button>
+            </div>
+            <button class="topbar-toggler more">
+                <i class="gg-more-vertical-alt"></i>
+            </button>
+        </div>
+    </div>
+    <div class="sidebar-wrapper scrollbar-inner">
+        <div class="sidebar-content">
+            <ul class="nav nav-secondary">
+                <li class="nav-item {{ request()->is('dashboard') ? 'active' : '' }}">
+                    <a href="{{ route('dashboard') }}">
+                        <i class="fas fa-home"></i>
                         <p>Dashboard</p>
                     </a>
                 </li>
-
-                <li class="nav-item">
-                    <a href="{{ route('users.index') }}" class="nav-link">
-                        <i class="nav-icon fas fa-users"></i>
+                <li class="nav-item {{ request()->is('users*') ? 'active' : '' }}">
+                    <a href="{{ route('users.index') }}">
+                        <i class="fas fa-users"></i>
                         <p>Kelola User</p>
                     </a>
                 </li>
-
-                <li class="nav-item">
-                    <a href="{{ route('proyeks.index') }}" class="nav-link">
-                        <i class="nav-icon fas fa-project-diagram"></i>
+                <li class="nav-item {{ request()->is('proyeks*') ? 'active' : '' }}">
+                    <a href="{{ route('proyeks.index') }}">
+                        <i class="fas fa-project-diagram"></i>
                         <p>Kelola Proyek</p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="{{ route('customers.index') }}" class="nav-link">
-                        <i class="nav-icon fas fa-project-diagram"></i>
+                <li class="nav-item {{ request()->is('customers*') ? 'active' : '' }}">
+                    <a href="{{ route('customers.index') }}">
+                        <i class="fas fa-user-tie"></i>
                         <p>Kelola Customer</p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="{{ route('penjualans.index') }}" class="nav-link">
-                        <i class="nav-icon fas fa-project-diagram"></i>
+                <li class="nav-item {{ request()->is('penjualans*') ? 'active' : '' }}">
+                    <a href="{{ route('penjualans.index') }}">
+                        <i class="fas fa-cash-register"></i>
                         <p>Kelola Penjualan</p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="{{ route('barangs.index') }}" class="nav-link">
-                        <i class="nav-icon fas fa-project-diagram"></i>
+                <li class="nav-item {{ request()->is('barangs*') ? 'active' : '' }}">
+                    <a href="{{ route('barangs.index') }}">
+                        <i class="fas fa-box"></i>
                         <p>Kelola Barang</p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="{{ route('pembiayaans.index') }}" class="nav-link">
-                        <i class="nav-icon fas fa-project-diagram"></i>
+                <li class="nav-item {{ request()->is('pembiayaans*') ? 'active' : '' }}">
+                    <a href="{{ route('pembiayaans.index') }}">
+                        <i class="fas fa-money-bill-wave"></i>
                         <p>Kelola Pembiayaan</p>
                     </a>
                 </li>
-
-
-                <!-- Tambahkan menu lainnya nanti -->
+                <!-- Tambahkan menu lainnya di sini -->
             </ul>
-        </nav>
+        </div>
     </div>
-</aside>
+</div>

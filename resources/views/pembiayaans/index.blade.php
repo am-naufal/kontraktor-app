@@ -1,4 +1,17 @@
+
 @extends('layouts.app')
+
+@section('title', 'Daftar Pembiayaan')
+
+@section('content')
+<div class="page-inner">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3 class="fw-bold">Daftar Pembiayaan</h3>
+        <a href="{{ route('pembiayaans.create') }}" class="btn btn-primary">Tambah Pembiayaan</a>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            @extends('layouts.app')
 
 @section('content')
 <div class="container">
@@ -56,6 +69,11 @@
                     @endforelse
                 </tbody>
             </table>
+        </div>
+    </div>
+</div>
+@endsection
+
         </div>
     </div>
 </div>

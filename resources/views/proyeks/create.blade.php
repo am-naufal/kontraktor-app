@@ -1,4 +1,14 @@
+
 @extends('layouts.app')
+
+@section('title', 'Tambah Proyek')
+
+@section('content')
+<div class="page-inner">
+    <div class="card">
+        <div class="card-header"><div class="card-title">Tambah Proyek</div></div>
+        <div class="card-body">
+            @extends('layouts.app')
 
 @section('content')
 <div class="container">
@@ -100,6 +110,11 @@
                 <button type="submit" class="btn btn-success">Simpan</button>
                 <a href="{{ route('proyeks.index') }}" class="btn btn-secondary">Kembali</a>
             </form>
+        </div>
+    </div>
+</div>
+@endsection
+
         </div>
     </div>
 </div>

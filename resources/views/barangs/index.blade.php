@@ -1,4 +1,17 @@
+
 @extends('layouts.app')
+
+@section('title', 'Daftar Barang')
+
+@section('content')
+<div class="page-inner">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3 class="fw-bold">Daftar Barang</h3>
+        <a href="{{ route('barangs.create') }}" class="btn btn-primary">Tambah Barang</a>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            @extends('layouts.app')
 
 @section('content')
 <div class="container-fluid">
@@ -45,6 +58,11 @@
 
     <div class="mt-3">
         {{ $barangs->links() }}
+    </div>
+</div>
+@endsection
+
+        </div>
     </div>
 </div>
 @endsection

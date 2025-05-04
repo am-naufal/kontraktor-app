@@ -13,6 +13,9 @@ export default defineConfig({
         hmr: {
             host: 'localhost',
         },
+        watch: {
+            usePolling: true,
+        },
     },
     optimizeDeps: {
         include: ['alpinejs', 'axios'],
