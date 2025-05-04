@@ -11,13 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('customers', function (Blueprint $table) {
-            $table->id();
-            $table->string('nama');
-            $table->string('email')->nullable();
-            $table->string('telepon')->unique();
-            $table->text('alamat')->nullable();
-            $table->timestamps();
+        Schema::table('penjualans', function (Blueprint $table) {
+            $table->string('invoice')->nullable()->after('id');
         });
     }
 
@@ -26,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('customers');
+        Schema::table('penjualans', function (Blueprint $table) {
+            //
+        });
     }
 };

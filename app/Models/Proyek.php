@@ -10,12 +10,7 @@ class Proyek extends Model
     use HasFactory;
 
     protected $fillable = [
-        'nama_proyek',
-        'lokasi',
-        'customer_id',
-        'tanggal_mulai',
-        'tanggal_selesai',
-        'status'
+        'nama_proyek', 'lokasi', 'tanggal_mulai', 'tanggal_selesai', 'status', 'biaya', 'foto', 'customer_id', 'user_id'
     ];
 
     protected $casts = [
@@ -25,6 +20,12 @@ class Proyek extends Model
 
     public function customer()
     {
-        return $this->belongsTo(Customer::class);
+        return $this->belongsToMany(Customer::class, 'customer_proyek');
     }
+
+    public function user()
+{
+    return $this->belongsTo(User::class);
+}
+
 }

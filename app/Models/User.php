@@ -18,10 +18,7 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'role',
+        'name', 'email', 'password', 'role', 'no_hp', 'foto'
     ];
 
     /**
@@ -46,4 +43,9 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    public function proyeks()
+{
+    return $this->hasMany(Proyek::class);
+}
+
 }

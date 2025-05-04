@@ -11,14 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('customers', function (Blueprint $table) {
-            $table->id();
-            $table->string('nama');
-            $table->string('email')->nullable();
-            $table->string('telepon')->unique();
-            $table->text('alamat')->nullable();
-            $table->timestamps();
+        Schema::table('proyeks', function (Blueprint $table) {
+            $table->decimal('biaya', 15, 2)->after('status')->nullable();
+            $table->string('foto')->after('biaya')->nullable(); // path ke file
         });
+
     }
 
     /**
@@ -26,6 +23,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('customers');
+        Schema::table('proyeks', function (Blueprint $table) {
+            //
+        });
     }
 };

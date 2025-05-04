@@ -20,7 +20,7 @@
                             </div>
                         @endif
 
-                        <form action="{{ route('users.update', $user->id) }}" method="POST">
+                        <form action="{{ route('users.update', $user->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
 
@@ -35,6 +35,18 @@
                                 <input type="email" name="email" class="form-control" value="{{ $user->email }}"
                                     required>
                             </div>
+                            <div class="form-group mb-3">
+                                <label>No. HP</label>
+                                <input type="text" name="no_hp" class="form-control" value="{{ old('no_hp', $user->no_hp ?? '') }}">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label>Foto</label>
+                                <input type="file" name="foto" class="form-control-file">
+                                @if(isset($user) && $user->foto)
+                                    <img src="{{ asset('storage/' . $user->foto) }}" alt="Foto User" width="100" class="mt-2">
+                                @endif
+                            </div>
+
 
                             <div class="form-group mb-3">
                                 <label>Password (kosongkan jika tidak diubah)</label>

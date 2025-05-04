@@ -1,62 +1,54 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <h3>Edit Customer</h3>
-        <div class="card">
-            <div class="card-body">
-                @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul class="mb-0">
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
+<div class="container">
+    <h3>Edit Customer</h3>
 
-                <form action="{{ route('customers.update', $customer->id) }}" method="POST">
-                    @csrf @method('PUT')
+    <div class="card">
+        <div class="card-body">
+            <form action="{{ route('customers.update', $customer->id) }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                @method('PUT')
 
-                    <div class="form-group">
-                        <label>Nama</label>
-                        <input type="text" name="nama" class="form-control @error('nama') is-invalid @enderror"
-                            value="{{ old('nama', $customer->nama) }}" required>
-                        @error('nama')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
+                <div class="form-group">
+                    <label>Nama Customer</label>
+                    <input type="text" name="nama" class="form-control" value="{{ old('nama', $customer->nama) }}" required>
+                </div>
 
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
-                            value="{{ old('email', $customer->email) }}">
-                        @error('email')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
+                <div class="form-group">
+                    <label>Nama Perusahaan</label>
+                    <input type="text" name="nama_perusahaan" class="form-control" value="{{ old('nama_perusahaan', $customer->nama_perusahaan) }}">
+                </div>
 
-                    <div class="form-group">
-                        <label>Telepon</label>
-                        <input type="text" name="telepon" class="form-control @error('telepon') is-invalid @enderror"
-                            value="{{ old('telepon', $customer->telepon) }}">
-                        @error('telepon')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" name="email" class="form-control" value="{{ old('email', $customer->email) }}">
+                </div>
 
-                    <div class="form-group">
-                        <label>Alamat</label>
-                        <textarea name="alamat" class="form-control @error('alamat') is-invalid @enderror">{{ old('alamat', $customer->alamat) }}</textarea>
-                        @error('alamat')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
+                <div class="form-group">
+                    <label>Telepon</label>
+                    <input type="text" name="telepon" class="form-control" value="{{ old('telepon', $customer->telepon) }}">
+                </div>
 
-                    <button type="submit" class="btn btn-primary">Update</button>
-                    <a href="{{ route('customers.index') }}" class="btn btn-secondary">Kembali</a>
-                </form>
-            </div>
+                <div class="form-group">
+                    <label>Alamat</label>
+                    <textarea name="alamat" class="form-control">{{ old('alamat', $customer->alamat) }}</textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Upload NPWP (PDF/Gambar)</label>
+                    <input type="file" name="npwp" class="form-control-file">
+                    @if ($customer->npwp)
+                        <p class="mt-2">File saat ini:
+                            <a href="{{ asset('storage/' . $customer->npwp) }}" target="_blank">Lihat NPWP</a>
+                        </p>
+                    @endif
+                </div>
+
+                <button type="submit" class="btn btn-primary">Update</button>
+                <a href="{{ route('customers.index') }}" class="btn btn-secondary">Kembali</a>
+            </form>
         </div>
     </div>
+</div>
 @endsection

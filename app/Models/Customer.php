@@ -10,14 +10,11 @@ class Customer extends Model
     use HasFactory;
 
     protected $fillable = [
-        'nama',
-        'email',
-        'telepon',
-        'alamat'
+        'nama', 'email', 'telepon', 'alamat', 'nama_perusahaan', 'npwp'
     ];
 
     public function proyeks()
     {
-        return $this->hasMany(Proyek::class);
+        return $this->belongsToMany(Proyek::class, 'customer_proyek');
     }
 }

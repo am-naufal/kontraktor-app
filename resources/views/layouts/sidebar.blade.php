@@ -29,6 +29,31 @@
                         <p>Kelola Proyek</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('customers.index') }}" class="nav-link">
+                        <i class="nav-icon fas fa-project-diagram"></i>
+                        <p>Kelola Customer</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('penjualans.index') }}" class="nav-link">
+                        <i class="nav-icon fas fa-project-diagram"></i>
+                        <p>Kelola Penjualan</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('barangs.index') }}" class="nav-link">
+                        <i class="nav-icon fas fa-project-diagram"></i>
+                        <p>Kelola Barang</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('pembiayaans.index') }}" class="nav-link">
+                        <i class="nav-icon fas fa-project-diagram"></i>
+                        <p>Kelola Pembiayaan</p>
+                    </a>
+                </li>
+
 
                 <!-- Tambahkan menu lainnya nanti -->
             </ul>
