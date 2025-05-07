@@ -71,7 +71,7 @@
                 $('#barang-table').DataTable({
                     "pageLength": 10,
                     "ordering": true,
-                    "responsive": true,
+                    // "responsive": true,
                     "language": {
                         "search": "Cari:",
                         "lengthMenu": "Tampilkan _MENU_ data per halaman",

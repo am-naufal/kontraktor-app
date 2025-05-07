@@ -41,7 +41,7 @@
                 </li>
                 <li class="nav-item {{ request()->is('penjualans*') ? 'active' : '' }}">
                     <a href="{{ route('penjualans.index') }}">
-                        <i class="fas fa-cash-register"></i>
+                        <i class="fas fa-store"></i>
                         <p>Kelola Penjualan</p>
                     </a>
                 </li>
