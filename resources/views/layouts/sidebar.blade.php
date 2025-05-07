@@ -26,12 +26,7 @@
                         <p>Dashboard</p>
                     </a>
                 </li>
-                <li class="nav-item {{ request()->is('users*') ? 'active' : '' }}">
-                    <a href="{{ route('users.index') }}">
-                        <i class="fas fa-users"></i>
-                        <p>Kelola User</p>
-                    </a>
-                </li>
+
                 <li class="nav-item {{ request()->is('proyeks*') ? 'active' : '' }}">
                     <a href="{{ route('proyeks.index') }}">
                         <i class="fas fa-project-diagram"></i>
@@ -60,6 +55,12 @@
                     <a href="{{ route('pembiayaans.index') }}">
                         <i class="fas fa-money-bill-wave"></i>
                         <p>Kelola Pembiayaan</p>
+                    </a>
+                </li>
+                <li class="nav-item {{ request()->is('users*') ? 'active' : '' }}">
+                    <a href="{{ route('users.index') }}">
+                        <i class="fas fa-users"></i>
+                        <p>Kelola User</p>
                     </a>
                 </li>
                 <!-- Tambahkan menu lainnya di sini -->

@@ -33,6 +33,9 @@
     <link rel="stylesheet" href="{{ asset('build/assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('build/assets/css/plugins.min.css') }}">
     <link rel="stylesheet" href="{{ asset('build/assets/css/kaiadmin.min.css') }}">
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.bootstrap4.min.css">
 
 </head>
 
@@ -78,6 +81,11 @@
     <script src="{{ asset('build/assets/js/core/bootstrap.min.js') }}"></script>
     <script src="{{ asset('build/assets/js/plugin/chart.js/chart.min.js') }}"></script>
     <script src="{{ asset('build/assets/js/kaiadmin.min.js') }}"></script>
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.5.0/js/responsive.bootstrap4.min.js"></script>
 
     <!-- Sidebar Toggle Script -->
     <script>

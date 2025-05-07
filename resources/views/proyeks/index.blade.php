@@ -1,89 +1,99 @@
-
 @extends('layouts.app')
 
 @section('title', 'Daftar Proyek')
 
 @section('content')
-<div class="page-inner">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h3 class="fw-bold">Daftar Proyek</h3>
-        <a href="{{ route('proyeks.create') }}" class="btn btn-primary">Tambah Proyek</a>
-    </div>
-    <div class="card">
-        <div class="card-body">
-            @extends('layouts.app')
+    <div class="page-inner">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h3 class="fw-bold">Daftar Proyek</h3>
 
-@section('content')
-<div class="container-fluid">
-    <h3 class="mb-3">Daftar Proyek</h3>
-    <a href="{{ route('proyeks.create') }}" class="btn btn-primary mb-3">Tambah Proyek</a>
-    <form action="{{ route('proyeks.index') }}" method="GET" class="form-inline mb-3">
-        <input type="text" name="search" class="form-control mr-2" placeholder="Cari nama atau lokasi..."
-            value="{{ request('search') }}">
-        <button type="submit" class="btn btn-primary">Cari</button>
-        @if(request('search'))
-            <a href="{{ route('proyeks.index') }}" class="btn btn-secondary ml-2">Reset</a>
+        </div>
+
+        @if (session('success'))
+            <div class="alert alert-success">{{ session('success') }}</div>
         @endif
-    </form>
 
-    <div class="card">
-        <div class="card-body p-0">
-            <table class="table table-striped m-0">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Nama</th>
-                        <th>Foto</th>
-                        <th>Penanggung Jawab</th>
-                        <th>Biaya</th>
-                        <th>Detail</th>
-                        <th>Status</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse ($proyeks as $index => $proyek)
-                        <tr>
-                            <td>{{ $index + 1 }}</td>
-                            <td>{{ $proyek->nama_proyek }}</td>
-                            <td>
-                                @if ($proyek->foto)
-                                    <img src="{{ asset('storage/' . $proyek->foto) }}" alt="Foto Proyek" width="80">
-                                @else
-                                    <span class="text-muted">-</span>
-                                @endif
-                            </td>
-                            <td>{{ $proyek->user->name ?? '-' }}</td>
-                            <td>Rp {{ number_format($proyek->biaya, 2, ',', '.') }}</td>
-                            <td>
-                                <a href="{{ route('proyeks.show', $proyek->id) }}" class="btn btn-sm btn-info">Detail</a>
-                            </td>
-                            <td><span class="badge badge-info">{{ ucfirst($proyek->status) }}</span></td>
-                            <td>
-                                <a href="{{ route('proyeks.edit', $proyek->id) }}" class="btn btn-sm btn-warning">Edit</a>
-                                <form action="{{ route('proyeks.destroy', $proyek->id) }}" method="POST" class="d-inline">
-                                    @csrf @method('DELETE')
-                                    <button class="btn btn-sm btn-danger" onclick="return confirm('Hapus proyek ini?')">Hapus</button>
-                                </form>
-                            </td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="6" class="text-center">Belum ada proyek.</td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center mb-3">
+                <h4 class="card-title">Data Proyek</h4>
+                <a href="{{ route('proyeks.create') }}" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i> Tambah
+                    Proyek</a>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="proyek-table" class="display table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Nama Proyek</th>
+                                <th>Lokasi</th>
+                                <th>Tanggal Mulai</th>
+                                <th>Tanggal Selesai</th>
+                                <th>Status</th>
+                                <th>Keterangan</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse ($proyeks as $index => $item)
+                                <tr>
+                                    <td>{{ $index + 1 }}</td>
+                                    <td>{{ $item->nama_proyek }}</td>
+                                    <td>{{ $item->lokasi }}</td>
+                                    <td>{{ $item->tanggal_mulai }}</td>
+                                    <td>{{ $item->tanggal_selesai }}</td>
+                                    <td>
+                                        <span class="badge badge-{{ $item->status == 'Selesai' ? 'success' : 'warning' }}">
+                                            {{ $item->status }}
+                                        </span>
+                                    </td>
+                                    <td>{{ $item->keterangan }}</td>
+                                    <td>
+                                        <a href="{{ route('proyeks.edit', $item->id) }}"
+                                            class="btn btn-warning btn-sm">Edit</a>
+                                        <form action="{{ route('proyeks.destroy', $item->id) }}" method="POST"
+                                            class="d-inline" onsubmit="return confirm('Yakin hapus data ini?')">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="btn btn-danger btn-sm">Hapus</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="8" class="text-center">Belum ada data proyek.</td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 
-    <div class="mt-3">
-        {{ $proyeks->appends(['search' => request('search')])->links() }}
-    </div>
-</div>
-@endsection
-
-        </div>
-    </div>
-</div>
+    @push('scripts')
+        <script>
+            $(document).ready(function() {
+                $('#proyek-table').DataTable({
+                    "pageLength": 10,
+                    "ordering": true,
+                    "responsive": true,
+                    "language": {
+                        "search": "Cari:",
+                        "lengthMenu": "Tampilkan _MENU_ data per halaman",
+                        "zeroRecords": "Data tidak ditemukan",
+                        "info": "Menampilkan halaman _PAGE_ dari _PAGES_",
+                        "infoEmpty": "Tidak ada data yang tersedia",
+                        "infoFiltered": "(difilter dari _MAX_ total data)",
+                        "paginate": {
+                            "first": "Pertama",
+                            "last": "Terakhir",
+                            "next": "Selanjutnya",
+                            "previous": "Sebelumnya"
+                        }
+                    }
+                });
+            });
+        </script>
+    @endpush
 @endsection

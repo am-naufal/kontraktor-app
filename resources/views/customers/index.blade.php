@@ -1,83 +1,91 @@
-
 @extends('layouts.app')
 
 @section('title', 'Daftar Customer')
 
 @section('content')
-<div class="page-inner">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h3 class="fw-bold">Daftar Customer</h3>
-        <a href="{{ route('customers.create') }}" class="btn btn-primary">Tambah Customer</a>
-    </div>
-    <div class="card">
-        <div class="card-body">
-            @extends('layouts.app')
+    <div class="page-inner">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h3 class="fw-bold">Daftar Customer</h3>
+            <a href="{{ route('customers.create') }}" class="btn btn-primary btn-sm">Tambah Customer</a>
+        </div>
 
-@section('content')
-<div class="container-fluid">
-    <h3 class="mb-3">Daftar Customer</h3>
-    <a href="{{ route('customers.create') }}" class="btn btn-primary mb-3">Tambah Customer</a>
-    <form action="{{ route('customers.index') }}" method="GET" class="form-inline mb-3">
-        <input type="text" name="search" class="form-control mr-2" placeholder="Cari nama, email, atau perusahaan..."
-            value="{{ request('search') }}">
-        <button type="submit" class="btn btn-primary">Cari</button>
-        @if(request('search'))
-            <a href="{{ route('customers.index') }}" class="btn btn-secondary ml-2">Reset</a>
+        @if (session('success'))
+            <div class="alert alert-success">{{ session('success') }}</div>
         @endif
-    </form>
-    <div class="card">
-        <div class="card-body p-0">
-            <table class="table table-striped m-0">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Nama</th>
-                        <th>Telepon</th>
-                        <th>Alamat</th>
-                        <th>Perusahaan</th>
-                        <th>NPWP</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse ($customers as $index => $customer)
-                        <tr>
-                            <td>{{ $index + 1 }}</td>
-                            <td>{{ $customer->nama }}</td>
-                            <td>{{ $customer->telepon }}</td>
-                            <td>{{ $customer->alamat }}</td>
-                            <td>{{ $customer->nama_perusahaan ?? '-' }}</td>
-                            <td>
-                                @if ($customer->npwp)
-                                    <a href="{{ asset('storage/' . $customer->npwp) }}" target="_blank">Lihat</a>
-                                @else
-                                    <span class="text-muted">-</span>
-                                @endif
-                            </td>
-                            <td>
-                                <a href="{{ route('customers.edit', $customer->id) }}" class="btn btn-sm btn-warning">Edit</a>
-                                <form action="{{ route('customers.destroy', $customer->id) }}" method="POST" class="d-inline">
-                                    @csrf @method('DELETE')
-                                    <button class="btn btn-sm btn-danger" onclick="return confirm('Hapus customer ini?')">Hapus</button>
-                                </form>
-                            </td>
-                        </tr>
-                    @empty
-                        <tr><td colspan="7" class="text-center">Belum ada customer.</td></tr>
-                    @endforelse
-                </tbody>
-            </table>
+
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Data Customer</h4>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="customer-table" class="display table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Nama</th>
+                                <th>Email</th>
+                                <th>No. HP</th>
+                                <th>Alamat</th>
+                                <th>Keterangan</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse ($customers as $index => $item)
+                                <tr>
+                                    <td>{{ $index + 1 }}</td>
+                                    <td>{{ $item->nama }}</td>
+                                    <td>{{ $item->email }}</td>
+                                    <td>{{ $item->no_hp }}</td>
+                                    <td>{{ $item->alamat }}</td>
+                                    <td>{{ $item->keterangan }}</td>
+                                    <td>
+                                        <a href="{{ route('customers.edit', $item->id) }}"
+                                            class="btn btn-warning btn-sm">Edit</a>
+                                        <form action="{{ route('customers.destroy', $item->id) }}" method="POST"
+                                            class="d-inline" onsubmit="return confirm('Yakin hapus data ini?')">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="btn btn-danger btn-sm">Hapus</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="7" class="text-center">Belum ada data customer.</td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 
-    <div class="mt-3">
-        {{ $customers->appends(['search' => request('search')])->links() }}
-    </div>
-
-</div>
-@endsection
-
-        </div>
-    </div>
-</div>
+    @push('scripts')
+        <script>
+            $(document).ready(function() {
+                $('#customer-table').DataTable({
+                    "pageLength": 10,
+                    "ordering": true,
+                    "responsive": true,
+                    "language": {
+                        "search": "Cari:",
+                        "lengthMenu": "Tampilkan _MENU_ data per halaman",
+                        "zeroRecords": "Data tidak ditemukan",
+                        "info": "Menampilkan halaman _PAGE_ dari _PAGES_",
+                        "infoEmpty": "Tidak ada data yang tersedia",
+                        "infoFiltered": "(difilter dari _MAX_ total data)",
+                        "paginate": {
+                            "first": "Pertama",
+                            "last": "Terakhir",
+                            "next": "Selanjutnya",
+                            "previous": "Sebelumnya"
+                        }
+                    }
+                });
+            });
+        </script>
+    @endpush
 @endsection
